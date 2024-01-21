@@ -1,7 +1,7 @@
-from sklearn.impute import SimpleImputer ## HAndling Missing Values
-from sklearn.preprocessing import StandardScaler # HAndling Feature Scaling
-from sklearn.preprocessing import OrdinalEncoder # Ordinal Encoding
-## pipelines
+from sklearn.impute import SimpleImputer 
+from sklearn.preprocessing import StandardScaler 
+from sklearn.preprocessing import OrdinalEncoder 
+
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 import sys,os
@@ -13,13 +13,13 @@ from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object
 
-## Data Transformation config
+
 @dataclass
 class DataTransformationconfig:
     preprocessor_obj_file_path=os.path.join('artifacts','preprocessor.pkl')
 
 
-## Data Ingestionconfig class
+
 class DataTransformation:
     def __init__(self):
         self.data_transformation_config=DataTransformationconfig()
@@ -28,7 +28,7 @@ class DataTransformation:
 
         try:
             logging.info('Data Transformation initiated')
-            # Define which columns should be ordinal-encoded and which should be scaled
+
             categorical_cols=['cut','color','clarity']
             numerical_cols=['carat','depth','table','x','y','z']
 
@@ -39,8 +39,7 @@ class DataTransformation:
 
             logging.info('Pipeline Initiated')
 
-            ## Numerical Pipeline
-            ## Numerical Pipeline
+
             num_pipeline=Pipeline(
                 steps=[
                 ('imputer',SimpleImputer(strategy='median')),
@@ -50,7 +49,6 @@ class DataTransformation:
 
              )
 
-        # Categorigal Pipeline
             cat_pipeline=Pipeline(
                 steps=[
                 ('imputer',SimpleImputer(strategy='most_frequent')),
@@ -90,6 +88,7 @@ class DataTransformation:
 
             target_column_name='price'
             drop_columns=[target_column_name,'id']
+
             ## features into independent and dependent features
             input_feature_train_df=train_df.drop(columns=drop_columns,axis=1)
             target_feature_train_df=train_df[target_column_name]
