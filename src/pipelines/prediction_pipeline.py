@@ -9,6 +9,7 @@ class PredictPipeline:
     def __init__(self):
         pass
 
+
     def predict(self,features):
         try:
             preprocessor_path=os.path.join('artifacts','preprocessor.pkl')
@@ -49,6 +50,7 @@ class CustomData:
         self.color = color
         self.clarity = clarity
 
+
     def get_data_as_dataframe(self):
         try:
             custom_data_input_dict = {
@@ -62,9 +64,11 @@ class CustomData:
                 'color':[self.color],
                 'clarity':[self.clarity]
             }
+
             df = pd.DataFrame(custom_data_input_dict)
             logging.info('Dataframe Gathered')
             return df
+        
         
         
         except Exception as e:
